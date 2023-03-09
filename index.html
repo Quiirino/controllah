@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Meu site com fundo preto</title>
+  <style>
+    body {
+        background-color: black;
+    }
+    .button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        right: 50%;
+        background-color: purple;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+    }
+  </style>
+</head>
+<body>
+  <button class="button" onclick="playAudio()">Confia</button>
+  <div style="position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1;">
+    <img id="gifzin" style="width: 100%; height: 100%;" />
+  </div>
+
+  <script>
+    function playAudio() {
+      var audio = new Audio('controllah.mp3');
+      audio.play();
+      let image = document.getElementById("gifzin");
+      image.src = "controllah.gif"
+
+      const gifs = [
+        'controllah1.gif',
+        'controllah2.gif',
+        'controllah3.gif',
+        'controllah4.gif',
+        'controllah5.gif',
+        'controllah6.gif',
+        // adicione mais URLs de GIFs aqui, se desejar
+        ];
+
+        function exibirGifAleatorio() {
+        // Seleciona aleatoriamente um URL de GIF do array 'gifs'
+        const urlAleatoria = gifs[Math.floor(Math.random() * gifs.length)];
+
+        // Cria um novo elemento de imagem para exibir o GIF
+        const img = document.createElement('img');
+        img.src = urlAleatoria;
+
+        // Obtém as dimensões do elemento principal (body)
+        const bodyDimensoes = document.body.getBoundingClientRect();
+        const bodyLargura = bodyDimensoes.width;
+        const bodyAltura = bodyDimensoes.height;
+
+        // Define valores aleatórios para as coordenadas x e y, limitando-os à área do elemento principal
+        const xAleatorio = Math.floor(Math.random() * (bodyLargura - 200)) + 100;
+        const yAleatorio = Math.floor(Math.random() * (bodyAltura - 200)) + 100;
+
+        // Define o estilo de posição do elemento de imagem
+        img.style.position = 'absolute';
+        img.style.left = `${xAleatorio}px`;
+        img.style.top = `${yAleatorio}px`;
+
+        // Adiciona o elemento de imagem ao DOM
+        document.body.appendChild(img);
+
+        // Define um período de tempo aleatório para exibir o GIF
+        const tempoAleatorio = Math.floor(Math.random() * 5000) + 1000;
+
+        // Remove o elemento de imagem após o período de tempo aleatório
+        setTimeout(() => {
+            img.remove();
+        }, tempoAleatorio);
+        }
+
+        // Executa a função 'exibirGifAleatorio' a cada 5 segundos
+        setInterval(exibirGifAleatorio, 5000);
+
+    }
+
+    const botao = document.querySelector('.button');
+    const gifzin = document.querySelector('gifzin');
+
+    botao.addEventListener('click', () => {
+        botao.remove();
+    });
+  </script>
+</body>
+</html>
